@@ -91,8 +91,8 @@ jobs:
          
     - name: Preset mihomo core   
       run: |
-        chmod -R a+x $GITHUB_WORKSPACE/x86/preset-clash-core.sh
-        $GITHUB_WORKSPACE/x86/preset-clash-core.sh
+        chmod -R a+x x86/preset-clash-core.sh
+        x86/preset-clash-core.sh
         
     - name: Download package
       id: package
