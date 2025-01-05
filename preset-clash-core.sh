@@ -2,7 +2,7 @@
 #=================================================
 # File name: perest-clash-core.sh
 # System Required: Linux
-# Version: 1.0 se
+# Version: 2.0 se
 # Lisence: MIT
 # Author: SuLingGG [edit by xiaouex]
 # Changelog:Download Meta Core only
