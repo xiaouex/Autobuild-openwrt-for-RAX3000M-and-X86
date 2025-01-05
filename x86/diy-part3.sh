@@ -1,1 +1,1 @@
-
+./scripts/feeds install -a 
