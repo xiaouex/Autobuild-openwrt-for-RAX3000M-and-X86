@@ -21,9 +21,9 @@ env:
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: .config
-  DIY_P1_SH:  $GITHUB_WORKSPACE/x86/diy-part1.sh
-  DIY_P2_SH:  $GITHUB_WORKSPACE/x86/diy-part2.sh
-  DIY_P3_SH:  $GITHUB_WORKSPACE/x86/diy-part3.sh
+  DIY_P1_SH:  /x86/diy-part1.sh
+  DIY_P2_SH:  /x86/diy-part2.sh
+  DIY_P3_SH:  /x86/diy-part3.sh
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
@@ -81,7 +81,19 @@ jobs:
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
-
+        
+    - name: Get mihomo alpha core
+      uses: robinraju/release-downloader@v1
+      with:
+         repository: 'MetaCubeX/mihomo'
+         tag: 'Prerelease-Alpha'
+         fileName: 'mihomo-linux-amd64-alpha-*.gz'
+         
+    - name: Preset mihomo core   
+      run: |
+        chmod -R a+x $GITHUB_WORKSPACE/x86/preset-clash-core.sh
+        $GITHUB_WORKSPACE/x86/preset-clash-core.sh
+        
     - name: Download package
       id: package
       run: |
