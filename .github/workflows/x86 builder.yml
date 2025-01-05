@@ -24,6 +24,7 @@ env:
   DIY_P1_SH:  x86/diy-part1.sh
   DIY_P2_SH:  x86/diy-part2.sh
   DIY_P3_SH:  x86/diy-part3.sh
+  PRESET_CLASH_CORE_SH: x86/perest-clash-core.sh
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
@@ -91,8 +92,8 @@ jobs:
          
     - name: Preset mihomo core   
       run: |
-        chmod -R a+x x86/preset-clash-core.sh
-        x86/preset-clash-core.sh
+        chmod -R a+x $PRESET_CLASH_CORE_SH
+        $GITHUB_WORKSPACE/$PRESET_CLASH_CORE_SH
         
     - name: Download package
       id: package
