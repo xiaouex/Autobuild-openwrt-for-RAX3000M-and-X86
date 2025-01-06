@@ -89,6 +89,7 @@ jobs:
          repository: 'MetaCubeX/mihomo'
          tag: 'Prerelease-Alpha'
          fileName: 'mihomo-linux-amd64-alpha-*.gz'
+         out-file-path: 'clash-core'
          
     - name: Preset mihomo core   
       run: |
