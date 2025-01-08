@@ -14,7 +14,7 @@ core_path="$GITHUB_WORKSPACE/openwrt/feeds/small/luci-app-openclash/root/etc/ope
 goe_path="$GITHUB_WORKSPACE/openwrt/feeds/small/luci-app-openclash/root/etc/openclash"
 
 cd $GITHUB_WORKSPACE/clash-core
-gunzip -c mihomo-linux-amd64-alpha-*.gz  > $core_path/clash_meta
+gunzip -c mihomo-linux-amd64-compatible-alpha-*.gz  > $core_path/clash_meta
 wget -qO- https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat > $goe_path/GeoIP.dat
 wget -qO- https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat > $goe_path/GeoSite.dat
 
