@@ -20,11 +20,11 @@ env:
   REPO_URL: https://github.com/coolsnowwolf/lede
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: x86/.config
-  DIY_P1_SH:  x86/diy-part1.sh
-  DIY_P2_SH:  x86/diy-part2.sh
-  DIY_P3_SH:  x86/diy-part3.sh
-  PRESET_CLASH_CORE_SH: x86/perest-clash-core.sh
+  CONFIG_FILE: .config
+  DIY_P1_SH:  diy-part1.sh
+  DIY_P2_SH:  diy-part2.sh
+  DIY_P3_SH:  diy-part3.sh
+  PRESET_CLASH_CORE_SH: perest-clash-core.sh
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
@@ -32,7 +32,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.10
 
     steps:
     - name: Checkout
@@ -147,7 +147,7 @@ jobs:
       id: tag
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       run: |
-        echo "release_tag=$(date +"x86-%Y.%m.%d-%H%M")" >> $GITHUB_OUTPUT
+        echo "release_tag=$(date +"rax300m-nand-%Y.%m.%d-%H%M")" >> $GITHUB_OUTPUT
         touch release.txt
         [ ${UPLOAD_GOFILE} = true && ${{ steps.gofile.outputs.url }} ] && echo "🔗 [GoFile](${{ steps.gofile.outputs.url }})" >> release.txt
         echo "status=success" >> $GITHUB_OUTPUT
