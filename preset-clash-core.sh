@@ -13,7 +13,8 @@ mkdir -p $GITHUB_WORKSPACE/openwrt/feeds/small/luci-app-openclash/root/etc/openc
 core_path="$GITHUB_WORKSPACE/openwrt/feeds/small/luci-app-openclash/root/etc/openclash/core"
 goe_path="$GITHUB_WORKSPACE/openwrt/feeds/small/luci-app-openclash/root/etc/openclash"
 
-unzip $GITHUB_WORKSPACE/clash_meta.zip -d $core_path
+cd $GITHUB_WORKSPACE/clash-core
+gunzip -c mihomo-linux-arm64-alpha-*.gz  > $core_path/clash_meta
 wget -qO- https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat > $goe_path/GeoIP.dat
 wget -qO- https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat > $goe_path/GeoSite.dat
 
