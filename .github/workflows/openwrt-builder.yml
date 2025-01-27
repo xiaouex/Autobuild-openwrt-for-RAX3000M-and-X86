@@ -75,6 +75,14 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P3_SH
 
+    - name: Get mihomo alpha core
+      uses: robinraju/release-downloader@v1
+      with:
+         repository: 'MetaCubeX/mihomo'
+         tag: 'Prerelease-Alpha'
+         fileName: 'mihomo-linux-arm64-alpha-*.gz'
+         out-file-path: 'clash-core'  
+         
     - name: Load custom configuration
       run: |
         [ -e files ] && mv files openwrt/files
@@ -82,15 +90,7 @@ jobs:
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
-        
-    - name: Get mihomo alpha core
-      uses: robinraju/release-downloader@v1
-      with:
-         repository: 'MetaCubeX/mihomo'
-         tag: 'Prerelease-Alpha'
-         fileName: 'mihomo-linux-arm64-alpha-*.gz'
-         out-file-path: 'clash-core'    
-        
+          
     - name: Download package
       id: package
       run: |
