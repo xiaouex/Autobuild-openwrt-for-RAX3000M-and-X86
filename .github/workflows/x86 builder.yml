@@ -83,18 +83,18 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
         
-    #- name: Get mihomo alpha core
-     # uses: robinraju/release-downloader@v1
-      #with:
-         #repository: 'MetaCubeX/mihomo'
-         #tag: 'Prerelease-Alpha'
-         #fileName: 'mihomo-linux-amd64-compatible-alpha-*.gz'
-         #out-file-path: 'clash-core'
+    - name: Get mihomo alpha core
+      uses: robinraju/release-downloader@v1
+      with:
+         repository: 'MetaCubeX/mihomo'
+         tag: 'Prerelease-Alpha'
+         fileName: 'mihomo-linux-amd64-compatible-alpha-*.gz'
+         out-file-path: 'clash-core'
          
-   # - name: Preset mihomo core   
-      #run: |
-       # chmod -R a+x $PRESET_CLASH_CORE_SH
-       # $GITHUB_WORKSPACE/$PRESET_CLASH_CORE_SH
+    - name: Preset mihomo core   
+      run: |
+        chmod -R a+x $PRESET_CLASH_CORE_SH
+        $GITHUB_WORKSPACE/$PRESET_CLASH_CORE_SH
         
     - name: Download package
       id: package
