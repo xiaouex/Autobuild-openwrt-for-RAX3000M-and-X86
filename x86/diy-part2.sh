@@ -26,5 +26,4 @@ sed -i '/customized in this file/a net.netfilter.nf_conntrack_max=165535' packag
 # 加入OpenClash核心
 chmod -R a+x $GITHUB_WORKSPACE/preset-clash-core.sh
 $GITHUB_WORKSPACE/preset-clash-core.sh
-rm -rf feeds/opentopd/luci-app-autotimeset
-git clone https://github.com/sirpdboy/luci-app-autotimeset feeds/opentopd/luci-app-autotimeset
+
