@@ -18,7 +18,7 @@
 #sed -i 's/LEDE/MineRouter/g' package/base-files/luci2/bin/config_generate
 #sed -i 's/LEDE/MineRouter/g' package/base-files/files/etc/init.d/system
 #修改设备名
-sed -i 's/%H/xiaouex's/g' package/base-files/files/etc/device_info
+sed -i "s/%H/xiaouex's/g" package/base-files/files/etc/device_info
 sed -i 's/%P/Router/g' package/base-files/files/etc/device_info
 # 修改默认主题
 sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/Makefile
