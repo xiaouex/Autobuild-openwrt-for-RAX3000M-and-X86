@@ -18,3 +18,7 @@
 sed -i '1i src-git smpackage https://github.com/kenzok8/small-package' feeds.conf.default
 sed -i '2i src-git small https://github.com/kenzok8/small' feeds.conf.default
 #sed -i '3i src-git opentopd https://github.com/sirpdboy/sirpdboy-package' feeds.conf.default
+rm -rf package/network/services/hostapd
+rm -rf package/kernel/mt76/Makefile
+mv -f $GITHUB_WORKSPACE/x86/hostapd package/network/services/hostapd
+mv -f $GITHUB_WORKSPACE/x86/Makefile package/kernel/mt76/Makefile
