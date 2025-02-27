@@ -22,3 +22,4 @@ rm -rf package/network/services/hostapd
 rm -rf package/kernel/mt76/Makefile
 mv -f $GITHUB_WORKSPACE/x86/hostapd package/network/services/hostapd
 mv -f $GITHUB_WORKSPACE/x86/Makefile package/kernel/mt76/Makefile
+mv -f $GITHUB_WORKSPACE/x86/udebug package/libs/udebug
