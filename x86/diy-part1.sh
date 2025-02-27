@@ -23,4 +23,4 @@ rm -rf package/kernel/mt76/Makefile
 mv -f $GITHUB_WORKSPACE/x86/hostapd package/network/services/hostapd
 mv -f $GITHUB_WORKSPACE/x86/Makefile package/kernel/mt76/Makefile
 mv -f $GITHUB_WORKSPACE/x86/udebug package/libs/udebug
-mv -f $GITHUB_WORKSPACE/x86/liubox package/libs/liubox
+mv -f $GITHUB_WORKSPACE/x86/libubox package/libs/libubox
