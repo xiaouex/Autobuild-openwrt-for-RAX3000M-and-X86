@@ -129,7 +129,7 @@ jobs:
 
     - name: Organize files
       id: organize
-      if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
+      if: env.UPLOAD_FIRMWARE == 'true' && !cancelled() && steps.compile.outputs.status == 'success'
       run: |
         cd openwrt/bin/targets/*/*
         rm -rf packages
@@ -138,14 +138,14 @@ jobs:
 
     - name: Upload firmware directory
       uses: actions/upload-artifact@main
-      if: steps.organize.outputs.status == 'success' && !cancelled()
+      if: steps.organize.outputs.status == 'success' && !cancelled() && steps.compile.outputs.status == 'success'
       with:
         name: OpenWrt_firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: ${{ env.FIRMWARE }}
 
     - name: Generate release tag
       id: tag
-      if: env.UPLOAD_RELEASE == 'true' && !cancelled()
+      if: env.UPLOAD_RELEASE == 'true' && !cancelled() && steps.compile.outputs.status == 'success'
       run: |
         echo "release_tag=$(date +"x86-%Y.%m.%d-%H%M")" >> $GITHUB_OUTPUT
         touch release.txt
