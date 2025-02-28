@@ -26,8 +26,10 @@ rm -rf package/kernel/mt76/patches-6.x/002-mt7603-fix-mixed-code.patch
 rm -rf package/kernel/mt76/patches-6.x/003-wifi-mt76-mt7915-fix-oops.patch
 rm -rf package/kernel/mt76/patches-6.x/101-fixes-mt7925-build-error.patch
 rm -rf package/kernel/mt76/patches-6.x/200-fix-kernel-6.12-support.patch
-mv -f $GITHUB_WORKSPACE/x86/hostapd package/network/services/hostapd
-mv -f $GITHUB_WORKSPACE/x86/Makefile_mt76 package/kernel/mt76/Makefile
-mv -f $GITHUB_WORKSPACE/x86/udebug package/libs/udebug
-mv -f $GITHUB_WORKSPACE/x86/Makefile_ubus package/system/ubus/Makefile
-mv -f $GITHUB_WORKSPACE/x86/ubox package/system/ubox
+rm -rf package/kernel/mac80211
+mv -f $GITHUB_WORKSPACE/x86/files/hostapd package/network/services/hostapd
+mv -f $GITHUB_WORKSPACE/x86/files/Makefile_mt76 package/kernel/mt76/Makefile
+mv -f $GITHUB_WORKSPACE/x86/files/udebug package/libs/udebug
+mv -f $GITHUB_WORKSPACE/x86/files/Makefile_ubus package/system/ubus/Makefile
+mv -f $GITHUB_WORKSPACE/x86/files/ubox package/system/ubox
+mv -f $GITHUB_WORKSPACE/x86/files/mac80211 package/kernel/mac80211
