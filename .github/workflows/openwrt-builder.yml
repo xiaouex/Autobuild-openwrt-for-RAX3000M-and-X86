@@ -64,7 +64,7 @@ jobs:
         [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
         chmod +x $DIY_P1_SH
         cd openwrt
-        $GITHUB_WORKSPACE/rax3000m/$DIY_P1_SH
+        $GITHUB_WORKSPACE/$DIY_P1_SH
 
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
@@ -73,7 +73,7 @@ jobs:
       run: |
         chmod +x $DIY_P3_SH
         cd openwrt
-        $GITHUB_WORKSPACE/rax3000m/$DIY_P3_SH
+        $GITHUB_WORKSPACE/$DIY_P3_SH
 
     - name: Get mihomo alpha core
       uses: robinraju/release-downloader@v1
@@ -89,7 +89,7 @@ jobs:
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
         chmod +x $DIY_P2_SH
         cd openwrt
-        $GITHUB_WORKSPACE/rax3000m/$DIY_P2_SH
+        $GITHUB_WORKSPACE/$DIY_P2_SH
           
     - name: Download package
       id: package
