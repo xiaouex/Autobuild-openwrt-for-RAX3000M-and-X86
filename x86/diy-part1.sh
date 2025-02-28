@@ -22,6 +22,9 @@ sed -i '2i src-git small https://github.com/kenzok8/small' feeds.conf.default
 rm -rf package/network/services/hostapd
 rm -rf package/kernel/mt76/Makefile
 rm -rf package/system/ubox
+rm -rf package/kernel/mt76/patches-6.x/002-mt7603-fix-mixed-code.patch
+rm -rf package/kernel/mt76/patches-6.x/003-wifi-mt76-mt7915-fix-oops.patch
+rm -rf package/kernel/mt76/patches-6.x/101-fixes-mt7925-build-error.patch
 mv -f $GITHUB_WORKSPACE/x86/hostapd package/network/services/hostapd
 mv -f $GITHUB_WORKSPACE/x86/Makefile_mt76 package/kernel/mt76/Makefile
 mv -f $GITHUB_WORKSPACE/x86/udebug package/libs/udebug
