@@ -37,3 +37,4 @@ sed -i '2i src-git small https://github.com/kenzok8/small' feeds.conf.default
 mkdir -p package/xiaouex
 mv -f $GITHUB_WORKSPACE/x86/files/ipv6-helper package/xiaouex/ipv6-helper
 mv -f $GITHUB_WORKSPACE/x86/files/luci-app-filetransfer package/xiaouex/luci-app-filetransfer
+mv -f $GITHUB_WORKSPACE/x86/files/Config-build.in config/Config-build.in
