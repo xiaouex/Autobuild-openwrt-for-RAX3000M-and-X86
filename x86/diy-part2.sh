@@ -31,3 +31,5 @@ sed -i '/customized in this file/a net.netfilter.nf_conntrack_max=165535' packag
 #sed -i 's/PKG_SOURCE_DATE:=2024-04-04/PKG_SOURCE_DATE:=2025-02-14/g' package/kernel/mt76/Makefile
 #sed -i 's/8f301a5c5fe3d998b50666bde1d35d412833be89/e5fef138524e63314cb96ff8314048d175294e95/g' package/kernel/mt76/Makefile
 #sed -i 's/49291145ccceeac2964c9a43a46bed88298e5c1da63c6f3c2c1f6b3c1902a61e/4d6ea8669b3034c97f5b341a5473facf4fe21262a2fde71257b57c4d1c86be5e/g' package/kernel/mt76/Makefile
+mv -f $GITHUB_WORKSPACE/x86/files/luci-app-filetransfer feeds/luci/applications/luci-app-filetransfer
+./scripts/feeds update -a
