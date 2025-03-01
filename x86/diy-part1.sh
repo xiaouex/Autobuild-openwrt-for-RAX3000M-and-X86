@@ -34,6 +34,6 @@ sed -i '2i src-git small https://github.com/kenzok8/small' feeds.conf.default
 #mv -f $GITHUB_WORKSPACE/x86/files/ubox package/system/ubox
 #mv -f $GITHUB_WORKSPACE/x86/files/mac80211 package/kernel/mac80211
 
-mkdir -p feeds/xiaouex
-mv -f $GITHUB_WORKSPACE/x86/files/ipv6-helper feeds/xiaouex/ipv6-helper
-mv -f $GITHUB_WORKSPACE/x86/files/luci-app-filetransfer feeds/xiaouex/luci-app-filetransfer
+mkdir -p package/xiaouex
+mv -f $GITHUB_WORKSPACE/x86/files/ipv6-helper package/xiaouex/ipv6-helper
+mv -f $GITHUB_WORKSPACE/x86/files/luci-app-filetransfer package/xiaouex/luci-app-filetransfer
