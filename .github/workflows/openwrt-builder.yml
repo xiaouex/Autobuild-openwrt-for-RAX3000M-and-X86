@@ -73,6 +73,13 @@ jobs:
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+        
+    - name: Uses toolchain Cache
+      uses: klever1988/cachewrtbuild@main
+      with:
+         ccache: 'true'
+         mixkey: 'arm'
+         prefix: 'openwrt'
 
     - name: Load custom feeds
       run: |
