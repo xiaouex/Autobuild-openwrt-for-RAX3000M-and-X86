@@ -17,10 +17,10 @@ on:
   workflow_dispatch:
 
 env:
-  REPO_URL: https://github.com/immortalwrt/immortalwrt
+  REPO_URL: https://github.com/coolsnowwolf/lede
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: rax3000m/.config
+  CONFIG_FILE: rax3000m/files/.config
   DIY_P1_SH:  rax3000m/diy-part1.sh
   DIY_P2_SH:  rax3000m/diy-part2.sh
   DIY_P3_SH:  rax3000m/diy-part3.sh
