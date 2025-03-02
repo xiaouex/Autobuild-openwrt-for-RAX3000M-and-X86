@@ -35,6 +35,14 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
+      
+    - name: Remove old artifacts
+      uses: c-hive/gha-remove-artifacts@v1
+      with:
+        age: '1 month'  # 清理超过1个月的构建产物
+        skip-tags: true  # 跳过标记为release的构建产物
+        skip-recent: 3   # 保留最近的5个构建产物
+          
     - name: Checkout
       uses: actions/checkout@main
 
