@@ -21,7 +21,7 @@ env:
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: rax3000m.config
-  DIY_P1_SH:  rax3000mm/diy-part1.sh
+  DIY_P1_SH:  rax3000m/diy-part1.sh
   DIY_P2_SH:  rax3000m/diy-part2.sh
   DIY_P3_SH:  rax3000m/diy-part3.sh
   PRESET_CLASH_CORE_SH: rax300m/perest-clash-core.sh
