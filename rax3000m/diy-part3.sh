@@ -1,6 +1,6 @@
-mv -f $GITHUB_WORKSPACE/rax3000m/files/luci-app-filetransfer feeds/luci/applications/luci-app-filetransfer
-mv -f $GITHUB_WORKSPACE/rax3000m/files/Makefile_v2ray_geodata feeds/smpackage/v2ray-geodata/Makefile
-./scripts/feeds update -a
+#mv -f $GITHUB_WORKSPACE/rax3000m/files/luci-app-filetransfer feeds/luci/applications/luci-app-filetransfer
+#mv -f $GITHUB_WORKSPACE/rax3000m/files/Makefile_v2ray_geodata feeds/smpackage/v2ray-geodata/Makefile
+#./scripts/feeds update -a
 ./scripts/feeds install -a 
 #&& rm -rf feeds/luci/applications/luci-app-mosdns
 #rm -rf feeds/packages/net/{alist,adguardhome,mosdns,xray*,v2ray*,v2ray*,sing*,smartdns}
