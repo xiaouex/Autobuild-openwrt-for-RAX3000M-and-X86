@@ -33,6 +33,7 @@ sed -i '2i src-git small https://github.com/kenzok8/small' feeds.conf.default
 #mv -f $GITHUB_WORKSPACE/x86/files/Makefile_ubus package/system/ubus/Makefile
 #mv -f $GITHUB_WORKSPACE/x86/files/ubox package/system/ubox
 #mv -f $GITHUB_WORKSPACE/x86/files/mac80211 package/kernel/mac80211
+curl -sSL https://raw.githubusercontent.com/chenmozhijin/turboacc/luci/add_turboacc.sh -o add_turboacc.sh && bash add_turboacc.sh
 
 mkdir -p package/xiaouex
 mv -f $GITHUB_WORKSPACE/x86/files/ipv6-helper package/xiaouex/ipv6-helper
