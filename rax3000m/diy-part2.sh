@@ -12,9 +12,8 @@
 
 # Modify default IP
 sed -i 's/192.168.1.1/10.0.0.1/g' package/base-files/files/bin/config_generate
-sed -i 's/192.168.1.1/10.0.0.1/g' package/base-files/luci2/bin/config_generate
 # Modify hostname
-#sed -i 's/LEDE/MineRouter/g' package/base-files/files/bin/config_generate
+sed -i 's/ImmortalWrt/MineRouter/g' package/base-files/files/bin/config_generate
 #sed -i 's/LEDE/MineRouter/g' package/base-files/luci2/bin/config_generate
 #sed -i 's/LEDE/MineRouter/g' package/base-files/files/etc/init.d/system
 # 修改默认主题
@@ -27,8 +26,8 @@ sed -i '/customized in this file/a net.netfilter.nf_conntrack_max=165535' packag
 chmod -R a+x $GITHUB_WORKSPACE/rax3000m/preset-clash-core.sh
 $GITHUB_WORKSPACE/rax3000m/preset-clash-core.sh
 
-cp -f $GITHUB_WORKSPACE/rax3000m/bg1.jpg $GITHUB_WORKSPACE/openwrt/feeds/kenzo/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
+cp -f $GITHUB_WORKSPACE/rax3000m/bg1.jpg $GITHUB_WORKSPACE/openwrt/feeds/smpackage/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
 
-echo "
-CONFIG_PACKAGE_bridger=y
-" >> .config
+#echo "
+#CONFIG_PACKAGE_bridger=y
+#" >> .config
