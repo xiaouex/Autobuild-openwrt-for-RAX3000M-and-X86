@@ -9,9 +9,9 @@
 #=================================================
 
 echo -e "预置Clash内核"
-mkdir -p $GITHUB_WORKSPACE/openwrt/feeds/small/luci-app-openclash/root/etc/openclash/core
-core_path="$GITHUB_WORKSPACE/openwrt/feeds/small/luci-app-openclash/root/etc/openclash/core"
-goe_path="$GITHUB_WORKSPACE/openwrt/feeds/small/luci-app-openclash/root/etc/openclash"
+mkdir -p $GITHUB_WORKSPACE/openwrt/feeds/smpackage/luci-app-openclash/root/etc/openclash/core
+core_path="$GITHUB_WORKSPACE/openwrt/feeds/smpackage/luci-app-openclash/root/etc/openclash/core"
+goe_path="$GITHUB_WORKSPACE/openwrt/feeds/smpackage/luci-app-openclash/root/etc/openclash"
 
 cd $GITHUB_WORKSPACE/clash-core
 gunzip -c mihomo-linux-arm64-alpha-*.gz  > $core_path/clash_meta
