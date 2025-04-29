@@ -27,3 +27,7 @@ curl -sSL https://raw.githubusercontent.com/chenmozhijin/turboacc/luci/add_turbo
 
 mkdir -p package/xiaouex
 mv -f $GITHUB_WORKSPACE/rax3000m/files/ipv6-helper package/xiaouex/ipv6-helper
+
+cp $GITHUB_WORKSPACE/bbr3/601-*.patch target/linux/generic/hack-6.6
+cp $GITHUB_WORKSPACE/bbr3/500-*.patch package/network/utils/iproute2/patches
+cp $GITHUB_WORKSPACE/bbr3/900-*.patch target/linux/ath79/patches-6.6
