@@ -38,8 +38,8 @@ cp $GITHUB_WORKSPACE/x86/files/952-add-net-conntrack-events-support-multiple-reg
 
 cp $GITHUB_WORKSPACE/x86/files/001-libnftnl-add-fullcone-expression-support.patch package/libs/libnftnl/patches
 
-mkdir package/turboacc/fullconenat-nft/patches
-cp $GITHUB_WORKSPACE/x86/files/010-fix-build-with-kernel-6.12.patch package/turboacc/fullconenat-nft/patches/010-fix-build-with-kernel-6.12.patch
+mkdir package/turboacc/nft-fullcone/patches
+cp $GITHUB_WORKSPACE/x86/files/010-fix-build-with-kernel-6.12.patch package/turboacc/nft-fullcone/patches/010-fix-build-with-kernel-6.12.patch
 
 mkdir -p package/xiaouex
 mv -f $GITHUB_WORKSPACE/x86/files/ipv6-helper package/xiaouex/ipv6-helper
