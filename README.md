@@ -9,14 +9,18 @@
 A template for building OpenWrt with GitHub Actions
 
 ## Usage
-
+ENG
 - Click the [Use this template](https://github.com/P3TERX/Actions-OpenWrt/generate) button to create a new repository.
 - Generate `.config` files using [Lean's OpenWrt](https://github.com/coolsnowwolf/lede) source code. ( You can change it through environment variables in the workflow file. )
 - Push `.config` file to the GitHub repository.
 - Select `Build OpenWrt` on the Actions page.
 - Click the `Run workflow` button.
 - When the build is complete, click the `Artifacts` button in the upper right corner of the Actions page to download the binaries.
-
+CHN
+- 点击Use this template创建自己的分支。
+- 上传你的.config文件（需要自己在linux上用make menuconfig生成）。
+- 在Action中点击Run workflow开始编译。
+- 编译完成后会自动上传release
 ## Tips
 
 - It may take a long time to create a `.config` file and build the OpenWrt firmware. Thus, before create repository to build your own firmware, you may check out if others have already built it which meet your needs by simply [search `Actions-Openwrt` in GitHub](https://github.com/search?q=Actions-openwrt).
