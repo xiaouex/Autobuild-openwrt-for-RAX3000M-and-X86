@@ -33,11 +33,17 @@ sed -i '2i src-git small https://github.com/kenzok8/small' feeds.conf.default
 #mv -f $GITHUB_WORKSPACE/x86/files/Makefile_ubus package/system/ubus/Makefile
 #mv -f $GITHUB_WORKSPACE/x86/files/ubox package/system/ubox
 #mv -f $GITHUB_WORKSPACE/x86/files/mac80211 package/kernel/mac80211
-curl -sSL https://raw.githubusercontent.com/chenmozhijin/turboacc/luci/add_turboacc.sh -o add_turboacc.sh && bash add_turboacc.sh
+curl -sSL https://raw.githubusercontent.com/chenmozhijin/turboacc/luci/add_turboacc.sh -o add_turboacc.sh && bash add_turboacc --no-sfe
+cp $GITHUB_WORKSPACE/x86/files/952-add-net-conntrack-events-support-multiple-registrant.patch target/linux/generic/hack-6.12
+
+cp $GITHUB_WORKSPACE/x86/files/001-libnftnl-add-fullcone-expression-support.patch package/libs/libnftnl/patches
+
+mkdir package/turboacc/fullconenat-nft/patches
+cp $GITHUB_WORKSPACE/x86/files/010-fix-build-with-kernel-6.12.patch package/turboacc/fullconenat-nft/patches/010-fix-build-with-kernel-6.12.patch
 
 mkdir -p package/xiaouex
 mv -f $GITHUB_WORKSPACE/x86/files/ipv6-helper package/xiaouex/ipv6-helper
 
-cp $GITHUB_WORKSPACE/bbr3/601-*.patch target/linux/generic/hack-6.6
+cp $GITHUB_WORKSPACE/bbr3/601-*.patch target/linux/generic/hack-6.12
 cp $GITHUB_WORKSPACE/bbr3/500-*.patch package/network/utils/iproute2/patches
-cp $GITHUB_WORKSPACE/bbr3/900-*.patch target/linux/ath79/patches-6.6
+cp $GITHUB_WORKSPACE/bbr3/900-*.patch target/linux/ath79/patches-6.12
