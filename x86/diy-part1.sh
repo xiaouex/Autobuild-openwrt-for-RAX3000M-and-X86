@@ -35,9 +35,6 @@ sed -i '2i src-git small https://github.com/kenzok8/small' feeds.conf.default
 #mv -f $GITHUB_WORKSPACE/x86/files/mac80211 package/kernel/mac80211
 curl -sSL https://raw.githubusercontent.com/chenmozhijin/turboacc/luci/add_turboacc.sh -o add_turboacc.sh && bash add_turboacc.sh --no-sfe
 cp $GITHUB_WORKSPACE/x86/files/952-add-net-conntrack-events-support-multiple-registrant.patch target/linux/generic/hack-6.12
-
-cp $GITHUB_WORKSPACE/x86/files/001-libnftnl-add-fullcone-expression-support.patch package/libs/libnftnl/patches
-
 mkdir package/turboacc/nft-fullcone/patches
 cp $GITHUB_WORKSPACE/x86/files/010-fix-build-with-kernel-6.12.patch package/turboacc/nft-fullcone/patches/010-fix-build-with-kernel-6.12.patch
 
