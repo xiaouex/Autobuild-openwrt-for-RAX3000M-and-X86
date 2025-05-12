@@ -1,4 +1,4 @@
-From eb5151a8c0aba2b3cffc6fe370c7594f9bf39164 Mon Sep 17 00:00:00 2001
+From a98e9f0a2343c2aea33b3384b8dcf7320b814e8d Mon Sep 17 00:00:00 2001
 From: Neal Cardwell <ncardwell@google.com>
 Date: Fri, 27 Sep 2019 17:10:26 -0400
 Subject: [PATCH 10/19] net-tcp: re-generalize TSO sizing in TCP CC module API
@@ -20,13 +20,16 @@ large cwnd, and thus large pacing rate and large TSO burst size.
 Change-Id: Ic8ccfdbe4010ee8d4bf6a6334c48a2fceb2171ea
 ---
  include/net/tcp.h     |  4 ++--
+ net/ipv4/bpf_tcp_ca.c |  4 ++--
  net/ipv4/tcp_bbr.c    | 37 ++++++++++++++++++++++++++-----------
  net/ipv4/tcp_output.c | 11 +++++------
- 3 files changed, 33 insertions(+), 19 deletions(-)
+ 4 files changed, 35 insertions(+), 21 deletions(-)
 
+diff --git a/include/net/tcp.h b/include/net/tcp.h
+index 0cd5476bfe1e..aa8ed3b9a353 100644
 --- a/include/net/tcp.h
 +++ b/include/net/tcp.h
-@@ -1101,8 +1101,8 @@ struct tcp_congestion_ops {
+@@ -1203,8 +1203,8 @@ struct tcp_congestion_ops {
  	/* hook for packet ack accounting (optional) */
  	void (*pkts_acked)(struct sock *sk, const struct ack_sample *sample);
  
@@ -37,10 +40,34 @@ Change-Id: Ic8ccfdbe4010ee8d4bf6a6334c48a2fceb2171ea
  
  	/* react to a specific lost skb (optional) */
  	void (*skb_marked_lost)(struct sock *sk, const struct sk_buff *skb);
+diff --git a/net/ipv4/bpf_tcp_ca.c b/net/ipv4/bpf_tcp_ca.c
+index 554804774628..fb6ab6ca8440 100644
+--- a/net/ipv4/bpf_tcp_ca.c
++++ b/net/ipv4/bpf_tcp_ca.c
+@@ -280,7 +280,7 @@ static void bpf_tcp_ca_pkts_acked(struct sock *sk, const struct ack_sample *samp
+ {
+ }
+ 
+-static u32 bpf_tcp_ca_min_tso_segs(struct sock *sk)
++static u32 bpf_tcp_ca_tso_segs(struct sock *sk, unsigned int mss_now)
+ {
+ 	return 0;
+ }
+@@ -315,7 +315,7 @@ static struct tcp_congestion_ops __bpf_ops_tcp_congestion_ops = {
+ 	.cwnd_event = bpf_tcp_ca_cwnd_event,
+ 	.in_ack_event = bpf_tcp_ca_in_ack_event,
+ 	.pkts_acked = bpf_tcp_ca_pkts_acked,
+-	.min_tso_segs = bpf_tcp_ca_min_tso_segs,
++	.tso_segs = bpf_tcp_ca_tso_segs,
+ 	.cong_control = bpf_tcp_ca_cong_control,
+ 	.undo_cwnd = bpf_tcp_ca_undo_cwnd,
+ 	.sndbuf_expand = bpf_tcp_ca_sndbuf_expand,
+diff --git a/net/ipv4/tcp_bbr.c b/net/ipv4/tcp_bbr.c
+index 760941e55153..cb96435873ca 100644
 --- a/net/ipv4/tcp_bbr.c
 +++ b/net/ipv4/tcp_bbr.c
-@@ -300,20 +300,35 @@ __bpf_kfunc static u32 bbr_min_tso_segs(
- 	return sk->sk_pacing_rate < (bbr_min_tso_rate >> 3) ? 1 : 2;
+@@ -301,20 +301,35 @@ __bpf_kfunc static u32 bbr_min_tso_segs(struct sock *sk)
+ 	return READ_ONCE(sk->sk_pacing_rate) < (bbr_min_tso_rate >> 3) ? 1 : 2;
  }
  
 +/* Return the number of segments BBR would like in a TSO/GSO skb, given
@@ -53,7 +80,7 @@ Change-Id: Ic8ccfdbe4010ee8d4bf6a6334c48a2fceb2171ea
 +	u64 bytes;
 +
 +	/* Budget a TSO/GSO burst size allowance based on bw (pacing_rate). */
-+	bytes = sk->sk_pacing_rate >> sk->sk_pacing_shift;
++	bytes = READ_ONCE(sk->sk_pacing_rate) >> READ_ONCE(sk->sk_pacing_shift);
 +
 +	bytes = min_t(u32, bytes, gso_max_size - 1 - MAX_TCP_HEADER);
 +	segs = max_t(u32, bytes / mss_now, bbr_min_tso_segs(sk));
@@ -76,7 +103,7 @@ Change-Id: Ic8ccfdbe4010ee8d4bf6a6334c48a2fceb2171ea
 -	 * driver provided sk_gso_max_size.
 -	 */
 -	bytes = min_t(unsigned long,
--		      sk->sk_pacing_rate >> READ_ONCE(sk->sk_pacing_shift),
+-		      READ_ONCE(sk->sk_pacing_rate) >> READ_ONCE(sk->sk_pacing_shift),
 -		      GSO_LEGACY_MAX_SIZE - 1 - MAX_TCP_HEADER);
 -	segs = max_t(u32, bytes / tp->mss_cache, bbr_min_tso_segs(sk));
  
@@ -85,7 +112,7 @@ Change-Id: Ic8ccfdbe4010ee8d4bf6a6334c48a2fceb2171ea
  }
  
  /* Save "last known good" cwnd so we can restore it after losses or PROBE_RTT */
-@@ -1149,7 +1164,7 @@ static struct tcp_congestion_ops tcp_bbr
+@@ -1150,7 +1165,7 @@ static struct tcp_congestion_ops tcp_bbr_cong_ops __read_mostly = {
  	.undo_cwnd	= bbr_undo_cwnd,
  	.cwnd_event	= bbr_cwnd_event,
  	.ssthresh	= bbr_ssthresh,
@@ -94,9 +121,11 @@ Change-Id: Ic8ccfdbe4010ee8d4bf6a6334c48a2fceb2171ea
  	.get_info	= bbr_get_info,
  	.set_state	= bbr_set_state,
  };
+diff --git a/net/ipv4/tcp_output.c b/net/ipv4/tcp_output.c
+index c08a09bb3409..2383a34d4d60 100644
 --- a/net/ipv4/tcp_output.c
 +++ b/net/ipv4/tcp_output.c
-@@ -2022,13 +2022,12 @@ static u32 tcp_tso_autosize(const struct
+@@ -2062,13 +2062,12 @@ static u32 tcp_tso_autosize(const struct sock *sk, unsigned int mss_now,
  static u32 tcp_tso_segs(struct sock *sk, unsigned int mss_now)
  {
  	const struct tcp_congestion_ops *ca_ops = inet_csk(sk)->icsk_ca_ops;
@@ -115,3 +144,6 @@ Change-Id: Ic8ccfdbe4010ee8d4bf6a6334c48a2fceb2171ea
  	return min_t(u32, tso_segs, sk->sk_gso_max_segs);
  }
  
+-- 
+2.43.0
+

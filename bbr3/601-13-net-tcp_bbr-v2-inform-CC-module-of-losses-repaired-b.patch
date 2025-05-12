@@ -1,4 +1,4 @@
-From 087d67017b72863366d5352616bb2a363e970117 Mon Sep 17 00:00:00 2001
+From c4f7db95aac1c22edc40e5ed852b84867f6fecd8 Mon Sep 17 00:00:00 2001
 From: Jianfeng Wang <jfwang@google.com>
 Date: Tue, 16 Jun 2020 17:41:19 +0000
 Subject: [PATCH 13/19] net-tcp_bbr: v2: inform CC module of losses repaired by
@@ -22,9 +22,11 @@ Change-Id: Ieba72332b401b329bff5a641d2b2043a3fb8f632
  net/ipv4/tcp_input.c | 1 +
  2 files changed, 2 insertions(+)
 
+diff --git a/include/net/tcp.h b/include/net/tcp.h
+index aa8ed3b9a353..6e2c3ca32a61 100644
 --- a/include/net/tcp.h
 +++ b/include/net/tcp.h
-@@ -1013,6 +1013,7 @@ enum tcp_ca_event {
+@@ -1115,6 +1115,7 @@ enum tcp_ca_event {
  	CA_EVENT_LOSS,		/* loss timeout */
  	CA_EVENT_ECN_NO_CE,	/* ECT set, but not CE marked */
  	CA_EVENT_ECN_IS_CE,	/* received CE marked IP packet */
@@ -32,9 +34,11 @@ Change-Id: Ieba72332b401b329bff5a641d2b2043a3fb8f632
  };
  
  /* Information about inbound ACK, passed to cong_ops->in_ack_event() */
+diff --git a/net/ipv4/tcp_input.c b/net/ipv4/tcp_input.c
+index d9b1a509a07d..a67b146f73e7 100644
 --- a/net/ipv4/tcp_input.c
 +++ b/net/ipv4/tcp_input.c
-@@ -3813,6 +3813,7 @@ static void tcp_process_tlp_ack(struct s
+@@ -3865,6 +3865,7 @@ static void tcp_process_tlp_ack(struct sock *sk, u32 ack, int flag)
  		/* ACK advances: there was a loss, so reduce cwnd. Reset
  		 * tlp_high_seq in tcp_init_cwnd_reduction()
  		 */
@@ -42,3 +46,6 @@ Change-Id: Ieba72332b401b329bff5a641d2b2043a3fb8f632
  		tcp_init_cwnd_reduction(sk);
  		tcp_set_ca_state(sk, TCP_CA_CWR);
  		tcp_end_cwnd_reduction(sk);
+-- 
+2.43.0
+

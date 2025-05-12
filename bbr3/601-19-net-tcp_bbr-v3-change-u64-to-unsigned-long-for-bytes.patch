@@ -1,4 +1,4 @@
-From 5ccaffc5456985926897afe8c79fa21a612eec70 Mon Sep 17 00:00:00 2001
+From 742536da100a21452fb73c0b227cb170c5dc928d Mon Sep 17 00:00:00 2001
 From: Chen Minqiang <ptpt52@gmail.com>
 Date: Sat, 21 Sep 2024 23:51:24 +0800
 Subject: [PATCH 19/19] net-tcp_bbr: v3: change `u64` to `unsigned long` for
@@ -23,9 +23,11 @@ Signed-off-by: Chen Minqiang <ptpt52@gmail.com>
  net/ipv4/tcp_bbr.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/net/ipv4/tcp_bbr.c b/net/ipv4/tcp_bbr.c
+index e09389c378cc..c44fd8d1930f 100644
 --- a/net/ipv4/tcp_bbr.c
 +++ b/net/ipv4/tcp_bbr.c
-@@ -481,7 +481,7 @@ static u32 bbr_tso_segs_generic(struct s
+@@ -482,7 +482,7 @@ static u32 bbr_tso_segs_generic(struct sock *sk, unsigned int mss_now,
  {
  	struct bbr *bbr = inet_csk_ca(sk);
  	u32 segs, r;
@@ -33,4 +35,7 @@ Signed-off-by: Chen Minqiang <ptpt52@gmail.com>
 +	unsigned long bytes;
  
  	/* Budget a TSO/GSO burst size allowance based on bw (pacing_rate). */
- 	bytes = sk->sk_pacing_rate >> sk->sk_pacing_shift;
+ 	bytes = READ_ONCE(sk->sk_pacing_rate) >> READ_ONCE(sk->sk_pacing_shift);
+-- 
+2.43.0
+

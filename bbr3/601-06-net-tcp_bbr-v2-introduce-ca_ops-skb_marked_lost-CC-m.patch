@@ -1,4 +1,4 @@
-From 0dfc73a322b79b9bcc49ff662055051e2016e8d5 Mon Sep 17 00:00:00 2001
+From b3b376609b8e1e618ea62b690c84455d1b5f7c91 Mon Sep 17 00:00:00 2001
 From: Neal Cardwell <ncardwell@google.com>
 Date: Tue, 7 Aug 2018 21:52:06 -0400
 Subject: [PATCH 06/19] net-tcp_bbr: v2: introduce ca_ops->skb_marked_lost() CC
@@ -27,9 +27,11 @@ Change-Id: I54826ab53df636be537e5d3c618a46145d12d51a
  net/ipv4/tcp_input.c | 5 +++++
  2 files changed, 8 insertions(+)
 
+diff --git a/include/net/tcp.h b/include/net/tcp.h
+index ef670bed498e..8b8356707cc7 100644
 --- a/include/net/tcp.h
 +++ b/include/net/tcp.h
-@@ -1100,6 +1100,9 @@ struct tcp_congestion_ops {
+@@ -1202,6 +1202,9 @@ struct tcp_congestion_ops {
  	/* override sysctl_tcp_min_tso_segs */
  	u32 (*min_tso_segs)(struct sock *sk);
  
@@ -39,9 +41,11 @@ Change-Id: I54826ab53df636be537e5d3c618a46145d12d51a
  	/* call when packets are delivered to update cwnd and pacing rate,
  	 * after all the ca_state processing. (optional)
  	 */
+diff --git a/net/ipv4/tcp_input.c b/net/ipv4/tcp_input.c
+index b74f96053271..795eea527da7 100644
 --- a/net/ipv4/tcp_input.c
 +++ b/net/ipv4/tcp_input.c
-@@ -1103,7 +1103,12 @@ static void tcp_verify_retransmit_hint(s
+@@ -1126,7 +1126,12 @@ static void tcp_verify_retransmit_hint(struct tcp_sock *tp, struct sk_buff *skb)
   */
  static void tcp_notify_skb_loss_event(struct tcp_sock *tp, const struct sk_buff *skb)
  {
@@ -54,3 +58,6 @@ Change-Id: I54826ab53df636be537e5d3c618a46145d12d51a
  }
  
  void tcp_mark_skb_lost(struct sock *sk, struct sk_buff *skb)
+-- 
+2.43.0
+

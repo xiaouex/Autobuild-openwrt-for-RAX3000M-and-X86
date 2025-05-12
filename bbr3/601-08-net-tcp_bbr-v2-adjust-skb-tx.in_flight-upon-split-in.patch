@@ -1,4 +1,4 @@
-From cc06e420c17a12db64fd8c460d00cc60d5f5106f Mon Sep 17 00:00:00 2001
+From 9fe8efbc20b723d3b87bd720613fd68e28e29b80 Mon Sep 17 00:00:00 2001
 From: Neal Cardwell <ncardwell@google.com>
 Date: Wed, 1 May 2019 20:16:25 -0400
 Subject: [PATCH 08/19] net-tcp_bbr: v2: adjust skb tx.in_flight upon split in
@@ -28,9 +28,11 @@ Change-Id: I617f8cab4e9be7a0b8e8d30b047bf8645393354d
  net/ipv4/tcp_output.c | 26 +++++++++++++++++++++++++-
  2 files changed, 40 insertions(+), 1 deletion(-)
 
+diff --git a/include/net/tcp.h b/include/net/tcp.h
+index 8b8356707cc7..12c7d2f433fd 100644
 --- a/include/net/tcp.h
 +++ b/include/net/tcp.h
-@@ -1199,6 +1199,21 @@ static inline bool tcp_skb_sent_after(u6
+@@ -1301,6 +1301,21 @@ static inline bool tcp_skb_sent_after(u64 t1, u64 t2, u32 seq1, u32 seq2)
  	return t1 > t2 || (t1 == t2 && after(seq1, seq2));
  }
  
@@ -52,9 +54,11 @@ Change-Id: I617f8cab4e9be7a0b8e8d30b047bf8645393354d
  /* These functions determine how the current flow behaves in respect of SACK
   * handling. SACK is negotiated with the peer, and therefore it can vary
   * between different flows.
+diff --git a/net/ipv4/tcp_output.c b/net/ipv4/tcp_output.c
+index 1a1aecca78f4..c08a09bb3409 100644
 --- a/net/ipv4/tcp_output.c
 +++ b/net/ipv4/tcp_output.c
-@@ -1548,7 +1548,7 @@ int tcp_fragment(struct sock *sk, enum t
+@@ -1606,7 +1606,7 @@ int tcp_fragment(struct sock *sk, enum tcp_queue tcp_queue,
  {
  	struct tcp_sock *tp = tcp_sk(sk);
  	struct sk_buff *buff;
@@ -63,7 +67,7 @@ Change-Id: I617f8cab4e9be7a0b8e8d30b047bf8645393354d
  	long limit;
  	int nlen;
  	u8 flags;
-@@ -1623,6 +1623,30 @@ int tcp_fragment(struct sock *sk, enum t
+@@ -1681,6 +1681,30 @@ int tcp_fragment(struct sock *sk, enum tcp_queue tcp_queue,
  
  		if (diff)
  			tcp_adjust_pcount(sk, skb, diff);
@@ -94,3 +98,6 @@ Change-Id: I617f8cab4e9be7a0b8e8d30b047bf8645393354d
  	}
  
  	/* Link BUFF into the send queue. */
+-- 
+2.43.0
+
