@@ -35,8 +35,8 @@ sed -i '2i src-git small https://github.com/kenzok8/small' feeds.conf.default
 #mv -f $GITHUB_WORKSPACE/x86/files/mac80211 package/kernel/mac80211
 curl -sSL https://raw.githubusercontent.com/chenmozhijin/turboacc/luci/add_turboacc.sh -o add_turboacc.sh && bash add_turboacc.sh --no-sfe
 cp $GITHUB_WORKSPACE/x86/files/952-add-net-conntrack-events-support-multiple-registrant.patch target/linux/generic/hack-6.12
-mkdir package/turboacc/nft-fullcone/patches
-cp $GITHUB_WORKSPACE/x86/files/010-fix-build-with-kernel-6.12.patch package/turboacc/nft-fullcone/patches/010-fix-build-with-kernel-6.12.patch
+
+cp -f $GITHUB_WORKSPACE/x86/files/nft_ext_fullcone.c package/turboacc/nft-fullcone/src/nft_ext_fullcone.c
 
 mkdir -p package/xiaouex
 mv -f $GITHUB_WORKSPACE/x86/files/ipv6-helper package/xiaouex/ipv6-helper
