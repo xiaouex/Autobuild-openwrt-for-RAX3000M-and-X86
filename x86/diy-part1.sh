@@ -45,3 +45,5 @@ cp $GITHUB_WORKSPACE/bbr3/601-*.patch target/linux/generic/hack-6.12
 cp $GITHUB_WORKSPACE/bbr3/501-*.patch package/network/utils/iproute2/patches
 cp $GITHUB_WORKSPACE/bbr3/502-*.patch package/network/utils/iproute2/patches
 cp $GITHUB_WORKSPACE/bbr3/500-*.patch package/network/utils/iproute2/patches
+
+sed -i '29i net.core.default_qdisc=fq_pie' package/base-files/files/etc/sysctl.d/10-default.conf
