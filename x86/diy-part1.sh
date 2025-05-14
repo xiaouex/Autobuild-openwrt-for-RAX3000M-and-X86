@@ -46,4 +46,4 @@ cp $GITHUB_WORKSPACE/bbr3/501-*.patch package/network/utils/iproute2/patches
 cp $GITHUB_WORKSPACE/bbr3/502-*.patch package/network/utils/iproute2/patches
 cp $GITHUB_WORKSPACE/bbr3/500-*.patch package/network/utils/iproute2/patches
 
-sed -i '29i net.core.default_qdisc=fq_pie' package/base-files/files/etc/sysctl.d/10-default.conf
+sed -i '3i net.core.default_qdisc=fq_pie' package/base-files/files/etc/sysctl.conf
