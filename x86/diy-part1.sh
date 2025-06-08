@@ -46,4 +46,3 @@ cp $GITHUB_WORKSPACE/bbr3/501-*.patch package/network/utils/iproute2/patches
 cp $GITHUB_WORKSPACE/bbr3/502-*.patch package/network/utils/iproute2/patches
 cp $GITHUB_WORKSPACE/bbr3/500-*.patch package/network/utils/iproute2/patches
 
-sed 's/CONFIG_DEFAULT_NET_SCH="fq_codel"/CONFIG_DEFAULT_NET_SCH="fq_pie"/' target/linux/generic/config-6.12
