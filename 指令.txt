@@ -5,4 +5,5 @@ sed -i '1i src-git smpackage https://github.com/kenzok8/small-package' feeds.con
 sed -i '2i src-git small https://github.com/kenzok8/small' feeds.conf.default
 ./scripts/feeds update -a
 ./scripts/feeds install -a
+curl -sSL https://raw.githubusercontent.com/chenmozhijin/turboacc/luci/add_turboacc.sh -o add_turboacc.sh && bash add_turboacc.sh --no-sfe
 make menuconfig
