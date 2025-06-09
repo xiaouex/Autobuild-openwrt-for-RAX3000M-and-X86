@@ -5,5 +5,4 @@ git clone https://github.com/gSpotx2f/luci-app-temp-status feeds/luci/applicatio
 ./scripts/feeds update -a
 ./scripts/feeds install -a 
 sed -i 's/--set=llvm\.download-ci-llvm=true/--set=llvm.download-ci-llvm=false/' feeds/packages/lang/rust/Makefile
-#rm -rf feeds/opentopd/luci-app-autotimeset
-#git clone https://github.com/sirpdboy/luci-app-autotimeset feeds/opentopd/luci-app-autotimeset
+
