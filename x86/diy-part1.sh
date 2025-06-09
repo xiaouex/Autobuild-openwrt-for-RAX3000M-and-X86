@@ -46,6 +46,4 @@ cp $GITHUB_WORKSPACE/bbr3/501-*.patch package/network/utils/iproute2/patches
 cp $GITHUB_WORKSPACE/bbr3/502-*.patch package/network/utils/iproute2/patches
 cp $GITHUB_WORKSPACE/bbr3/500-*.patch package/network/utils/iproute2/patches
 
-sed -i '3i tc qdisc add dev eth1 root fq_pie' package/base-files/files/etc/rc.local
-sed -i '4i tc qdisc add dev pppoe-wan root fq_pie' package/base-files/files/etc/rc.local
-sed -i '5i tc qdisc add dev eth0 root fq_pie' package/base-files/files/etc/rc.local
+
