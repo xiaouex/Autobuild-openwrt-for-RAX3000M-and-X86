@@ -21,18 +21,14 @@ sed -i '2i src-git small https://github.com/kenzok8/small' feeds.conf.default
 
 curl -sSL https://raw.githubusercontent.com/chenmozhijin/turboacc/luci/add_turboacc.sh -o add_turboacc.sh && bash add_turboacc.sh --no-sfe
 
+chmod +x $GITHUB_WORKSPACE/x86/files/my-script/files/my_script
 mkdir -p package/xiaouex
 mv -f $GITHUB_WORKSPACE/x86/files/ipv6-helper package/xiaouex/ipv6-helper
+mv -f $GITHUB_WORKSPACE/x86/files/my-script package/xiaouex/my-script
+
 
 cp $GITHUB_WORKSPACE/bbr3/601-*.patch target/linux/generic/hack-6.12
 cp $GITHUB_WORKSPACE/bbr3/501-*.patch package/network/utils/iproute2/patches
 cp $GITHUB_WORKSPACE/bbr3/502-*.patch package/network/utils/iproute2/patches
 cp $GITHUB_WORKSPACE/bbr3/500-*.patch package/network/utils/iproute2/patches
 
-sed -i 's/CONFIG_DEFAULT_NET_SCH="fq_codel"/CONFIG_DEFAULT_NET_SCH="fq_pie"/ '  target/linux/generic/config-6.12
-sed -i 's/# CONFIG_DEFAULT_FQ_PIE is not set/CONFIG_DEFAULT_FQ_PIE=y/' target/linux/generic/config-6.12
-sed -i 's/CONFIG_DEFAULT_FQ_CODEL=y/# CONFIG_DEFAULT_FQ_CODEL is not set/' target/linux/generic/config-6.12
-sed -i 's/# CONFIG_NET_SCH_FQ_PIE is not set/CONFIG_NET_SCH_FQ_PIE=y/' target/linux/generic/config-6.12
-sed -i '$a\CONFIG_DEFAULT_NET_SCH="fq_pie"' target/linux/x86/config-6.12
-sed -i '$a\CONFIG_DEFAULT_FQ_PIE=y' target/linux/x86/config-6.12
-sed -i '$a\CONFIG_NET_SCH_FQ_PIE=y' target/linux/x86/config-6.12
