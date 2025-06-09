@@ -46,4 +46,10 @@ cp $GITHUB_WORKSPACE/bbr3/501-*.patch package/network/utils/iproute2/patches
 cp $GITHUB_WORKSPACE/bbr3/502-*.patch package/network/utils/iproute2/patches
 cp $GITHUB_WORKSPACE/bbr3/500-*.patch package/network/utils/iproute2/patches
 
-
+sed -i 's/CONFIG_DEFAULT_NET_SCH="fq_codel"/CONFIG_DEFAULT_NET_SCH="fq_pie"/ '  target/linux/generic/config-6.12
+sed -i 's/# CONFIG_DEFAULT_FQ_PIE is not set/CONFIG_DEFAULT_FQ_PIE=y/' target/linux/generic/config-6.12
+sed -i 's/CONFIG_DEFAULT_FQ_CODEL=y/# CONFIG_DEFAULT_FQ_CODEL is not set/' target/linux/generic/config-6.12
+sed -i 's/# CONFIG_NET_SCH_FQ_PIE is not set/CONFIG_NET_SCH_FQ_PIE=y/' target/linux/generic/config-6.12
+sed -i '$a\CONFIG_DEFAULT_NET_SCH="fq_pie' target/linux/x86/config-6.12
+sed -i '$a\CONFIG_DEFAULT_FQ_PIE=y' target/linux/x86/config-6.12
+sed -i '$a\CONFIG_NET_SCH_FQ_PIE=y' target/linux/x86/config-6.12
