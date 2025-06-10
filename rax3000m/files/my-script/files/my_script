@@ -1,0 +1,9 @@
+#!/bin/sh /etc/rc.common
+
+START=99
+
+start() {
+    tc qdisc replace dev pppoe-wan root fq_pie
+    tc qdisc replace dev eth1 root fq_pie
+    tc qdisc replace dev eth0 root fq_pie
+}
