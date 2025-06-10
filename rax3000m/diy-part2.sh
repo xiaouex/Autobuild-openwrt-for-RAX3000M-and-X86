@@ -12,10 +12,10 @@
 
 # Modify default IP
 sed -i 's/192.168.1.1/10.0.0.1/g' package/base-files/files/bin/config_generate
+
 # Modify hostname
 sed -i 's/ImmortalWrt/MineRouter/g' package/base-files/files/bin/config_generate
-#sed -i 's/LEDE/MineRouter/g' package/base-files/luci2/bin/config_generate
-#sed -i 's/LEDE/MineRouter/g' package/base-files/files/etc/init.d/system
+
 # 修改默认主题
 sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/Makefile
 
@@ -27,7 +27,3 @@ chmod -R a+x $GITHUB_WORKSPACE/rax3000m/preset-clash-core.sh
 $GITHUB_WORKSPACE/rax3000m/preset-clash-core.sh
 
 cp -f $GITHUB_WORKSPACE/rax3000m/bg1.jpg $GITHUB_WORKSPACE/openwrt/feeds/smpackage/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
-
-#echo "
-#CONFIG_PACKAGE_bridger=y
-#" >> .config
