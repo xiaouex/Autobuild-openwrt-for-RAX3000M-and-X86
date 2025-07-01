@@ -193,8 +193,8 @@ jobs:
       uses: jay2610/delete-older-releases@1.0.0
       with:
         repo: xiaouex/Autobuild-openwrt-for-RAX3000M-and-X86
-        keep_latest: 5
-        delete_tag_pattern: X86
+        keep_latest: 3
+        delete_tag_pattern: x86
         delete_type: 'release'
         target_branch: 'main'
         delete_tags: true
