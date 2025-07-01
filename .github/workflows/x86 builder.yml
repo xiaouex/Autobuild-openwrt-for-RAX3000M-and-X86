@@ -197,7 +197,6 @@ jobs:
         delete_tag_pattern: X86
         delete_type: 'release'
         target_branch: 'main'
-        keep_latest: true
         delete_tags: true
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
