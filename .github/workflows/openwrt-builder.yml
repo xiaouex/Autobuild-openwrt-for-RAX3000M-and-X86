@@ -183,3 +183,15 @@ jobs:
       with:
         retain_days: 0
         keep_minimum_runs: 2
+
+    - name: Delete older releases android tags 
+      uses: jay2610/delete-older-releases@1.0.0
+      with:
+        repo: xiaouex/Autobuild-openwrt-for-RAX3000M-and-X86
+        keep_latest: 3
+        delete_tag_pattern: rax3000m
+        delete_type: 'release'
+        target_branch: 'main'
+        delete_tags: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
