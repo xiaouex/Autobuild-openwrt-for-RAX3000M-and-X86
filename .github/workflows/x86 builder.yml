@@ -15,21 +15,22 @@ name: x86 Builder
 on:
   repository_dispatch:
   workflow_dispatch:
-inputs:
-  DEVICE:
-    description: "选择你的设备（X86或rax3000m)"
-    required: true
-    type: choice
-    options:
-      - 'x86'
-      - 'rax3000m'
-      default: 'X86'
-  
-   MIHOMO: 
-      description: "是否集成MIHOMO内核？" 
-      required: true
-      default: true
-      type: boolean    
+    inputs:
+      
+      DEVICE:
+        description: "选择你的设备（X86或rax3000m)"
+        required: true
+        type: choice
+        options:
+          - 'x86'
+          - 'rax3000m'
+          default: 'X86'
+      
+       MIHOMO: 
+          description: "是否集成MIHOMO内核？" 
+          required: true
+          default: true
+          type: boolean    
 env:
   REPO_URL: https://github.com/immortalwrt/immortalwrt
   REPO_BRANCH: master
