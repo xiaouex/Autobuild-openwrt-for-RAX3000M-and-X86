@@ -24,7 +24,7 @@ on:
         options:
           - 'x86'
           - 'rax3000m'
-          default: 'X86'
+          default: 'x86'
       
        MIHOMO: 
           description: "是否集成MIHOMO内核？" 
