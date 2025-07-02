@@ -84,6 +84,11 @@ jobs:
        echo "DIY_P3_SH=${{inputs.DEVICE}}/diy-part3.sh" >> $GITHUB_ENV
        echo "CONFIG_FILE=${{inputs.DEVICE}}/.config" >> $GITHUB_ENV
        echo "PRESET_CLASH_CORE_SH=${{inputs.DEVICE}}/preset-clash-core.sh" >> $GITHUB_ENV 
+       if {{inputs.DEVICE}}=rax3000m
+       echo "ARCH=arm64" >> $GITHUB_ENV
+       elif {{inputs.DEVICE}}=x86
+       echo "ARCH=amd64-compatible" >> $GITHUB_ENV
+       fi
        
         
     - name: Clone source code
@@ -129,7 +134,7 @@ jobs:
       with:
          repository: 'MetaCubeX/mihomo'
          tag: 'Prerelease-Alpha'
-         fileName: 'mihomo-linux-amd64-compatible-alpha-*.gz'
+         fileName: 'mihomo-linux-$ARCH-alpha-*.gz'
          out-file-path: 'clash-core'
          
     - name: Preset mihomo core   
