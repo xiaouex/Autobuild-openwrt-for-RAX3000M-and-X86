@@ -15,16 +15,25 @@ name: x86 Builder
 on:
   repository_dispatch:
   workflow_dispatch:
-
+inputs:
+  DEVICE:
+    description: "选择你的设备（X86或rax3000m)"
+    required: true
+    type: choice
+    options:
+      - 'x86'
+      - 'rax3000m'
+      default: 'X86'
+  
+   MIHOMO: 
+      description: "是否集成MIHOMO内核？" 
+      required: true
+      default: true
+      type: boolean    
 env:
   REPO_URL: https://github.com/immortalwrt/immortalwrt
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: x86/.config
-  DIY_P1_SH:  x86/diy-part1.sh
-  DIY_P2_SH:  x86/diy-part2.sh
-  DIY_P3_SH:  x86/diy-part3.sh
-  PRESET_CLASH_CORE_SH: x86/perest-clash-core.sh
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
@@ -67,6 +76,16 @@ jobs:
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
 
+    - name: Set ENV
+      run: |
+       DEVICE=${{inputs.DEVICE}}
+       echo "DIY_P1_SH=${DEVICE}/diy-part1.sh" >> $GITHUB_ENV
+       echo "DIY_P2_SH=${DEVICE}/diy-part2.sh" >> $GITHUB_ENV
+       echo "DIY_P3_SH=${DEVICE}/diy-part3.sh" >> $GITHUB_ENV
+       echo "CONFIG_FILE=${DEVICE}/.config" >> $GITHUB_ENV
+       echo "PRESET_CLASH_CORE_SH=${DEVICE}/perest-clash-core.sh" >> $GITHUB_ENV  
+       
+        
     - name: Clone source code
       working-directory: /workdir
       run: |
@@ -78,7 +97,7 @@ jobs:
       uses: klever1988/cachewrtbuild@main
       with:
          ccache: 'true'
-         mixkey: 'x86'
+         mixkey: '${DEVICE}'
          prefix: 'openwrt'
     
     - name: Load custom feeds
@@ -105,6 +124,7 @@ jobs:
         $GITHUB_WORKSPACE/$DIY_P2_SH
         
     - name: Get mihomo alpha core
+      if: ${{inputs.MIHOMO }}
       uses: robinraju/release-downloader@v1
       with:
          repository: 'MetaCubeX/mihomo'
@@ -113,6 +133,7 @@ jobs:
          out-file-path: 'clash-core'
          
     - name: Preset mihomo core   
+      if: ${{inputs.MIHOMO }}
       run: |
         chmod -R a+x $PRESET_CLASH_CORE_SH
         $GITHUB_WORKSPACE/$PRESET_CLASH_CORE_SH
@@ -168,7 +189,7 @@ jobs:
       id: tag
       if: env.UPLOAD_RELEASE == 'true' && !cancelled() && steps.compile.outputs.status == 'success'
       run: |
-        echo "release_tag=$(date +"x86-%Y.%m.%d-%H%M")" >> $GITHUB_OUTPUT
+        echo "release_tag=$(date +"${DEVICE}-%Y.%m.%d-%H%M")" >> $GITHUB_OUTPUT
         touch release.txt
         [ ${UPLOAD_GOFILE} = true && ${{ steps.gofile.outputs.url }} ] && echo "🔗 [GoFile](${{ steps.gofile.outputs.url }})" >> release.txt
         echo "status=success" >> $GITHUB_OUTPUT
@@ -193,8 +214,8 @@ jobs:
       uses: jay2610/delete-older-releases@1.0.0
       with:
         repo: xiaouex/Autobuild-openwrt-for-RAX3000M-and-X86
-        keep_latest: 3
-        delete_tag_pattern: x86
+        keep_latest: 5
+        delete_tag_pattern:
         delete_type: 'release'
         target_branch: 'main'
         delete_tags: true
