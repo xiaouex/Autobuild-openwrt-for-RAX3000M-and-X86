@@ -85,9 +85,9 @@ jobs:
        echo "CONFIG_FILE=${{inputs.DEVICE}}/.config" >> $GITHUB_ENV
        echo "PRESET_CLASH_CORE_SH=${{inputs.DEVICE}}/preset-clash-core.sh" >> $GITHUB_ENV 
        if [[ "${{inputs.DEVICE}}" == "rax3000m" ]];then
-         echo "ARCH=arm64" >> $GITHUB_ENV
+         echo "MIHOMO=mihomo-linux-arm64-alpha-*.gz" >> $GITHUB_ENV
        elif [[ "${{inputs.DEVICE}}" == "x86"  ]];then
-         echo "ARCH=amd64-compatible" >> $GITHUB_ENV
+         echo "MIHOMO=mihomo-linux-amd64-compatible-alpha-*.gz" >> $GITHUB_ENV
        fi
        
         
@@ -134,7 +134,7 @@ jobs:
       with:
          repository: 'MetaCubeX/mihomo'
          tag: 'Prerelease-Alpha'
-         fileName: 'mihomo-linux-$ARCH-alpha-*.gz'
+         fileName: '${{env.MIHOMO}}'
          out-file-path: 'clash-core'
          
     - name: Preset mihomo core   
