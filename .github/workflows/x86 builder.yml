@@ -79,7 +79,7 @@ jobs:
 
     - name: Set ENV
       run: |
-       DEVICE=${{inputs.DEVICE}}
+       echo "DEVICE=${{inputs.DEVICE}}" $GITHUB_ENV
        echo "DIY_P1_SH=${DEVICE}/diy-part1.sh" >> $GITHUB_ENV
        echo "DIY_P2_SH=${DEVICE}/diy-part2.sh" >> $GITHUB_ENV
        echo "DIY_P3_SH=${DEVICE}/diy-part3.sh" >> $GITHUB_ENV
