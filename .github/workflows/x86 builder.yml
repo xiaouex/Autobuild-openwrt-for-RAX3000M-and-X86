@@ -80,11 +80,11 @@ jobs:
     - name: Set ENV
       run: |
        echo "DEVICE=${{inputs.DEVICE}}" >> $GITHUB_ENV
-       echo "DIY_P1_SH=${DEVICE}/diy-part1.sh" >> $GITHUB_ENV
-       echo "DIY_P2_SH=${DEVICE}/diy-part2.sh" >> $GITHUB_ENV
-       echo "DIY_P3_SH=${DEVICE}/diy-part3.sh" >> $GITHUB_ENV
-       echo "CONFIG_FILE=${DEVICE}/.config" >> $GITHUB_ENV
-       echo "PRESET_CLASH_CORE_SH=${DEVICE}/perest-clash-core.sh" >> $GITHUB_ENV  
+       echo "DIY_P1_SH=${{ env.DEVICE }}/diy-part1.sh" >> $GITHUB_ENV
+       echo "DIY_P2_SH=${{ env.DEVICE }}/diy-part2.sh" >> $GITHUB_ENV
+       echo "DIY_P3_SH=${{ env.DEVICE }}/diy-part3.sh" >> $GITHUB_ENV
+       echo "CONFIG_FILE=${{ env.DEVICE }}/.config" >> $GITHUB_ENV
+       echo "PRESET_CLASH_CORE_SH=${{ env.DEVICE }}/perest-clash-core.sh" >> $GITHUB_ENV  
        
         
     - name: Clone source code
@@ -98,7 +98,7 @@ jobs:
       uses: klever1988/cachewrtbuild@main
       with:
          ccache: 'true'
-         mixkey: '${DEVICE}'
+         mixkey: '${{ env.DEVICE }}'
          prefix: 'openwrt'
     
     - name: Load custom feeds
@@ -190,7 +190,7 @@ jobs:
       id: tag
       if: env.UPLOAD_RELEASE == 'true' && !cancelled() && steps.compile.outputs.status == 'success'
       run: |
-        echo "release_tag=$(date +"${DEVICE}-%Y.%m.%d-%H%M")" >> $GITHUB_OUTPUT
+        echo "release_tag=$(date +"${{ env.DEVICE }}-%Y.%m.%d-%H%M")" >> $GITHUB_OUTPUT
         touch release.txt
         [ ${UPLOAD_GOFILE} = true && ${{ steps.gofile.outputs.url }} ] && echo "🔗 [GoFile](${{ steps.gofile.outputs.url }})" >> release.txt
         echo "status=success" >> $GITHUB_OUTPUT
