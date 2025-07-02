@@ -26,11 +26,11 @@ on:
           - 'rax3000m'
         default: 'x86'
       
-       MIHOMO: 
-          description: "是否集成MIHOMO内核？" 
-          required: true
-          default: true
-          type: boolean    
+      MIHOMO: 
+        description: "是否集成MIHOMO内核？" 
+        required: true
+        default: true
+        type: boolean    
 env:
   REPO_URL: https://github.com/immortalwrt/immortalwrt
   REPO_BRANCH: master
