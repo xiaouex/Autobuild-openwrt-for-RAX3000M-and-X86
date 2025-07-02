@@ -79,12 +79,12 @@ jobs:
 
     - name: Set ENV
       run: |
-       echo "DEVICE= ${{inputs.DEVICE}}" >> $GITHUB_ENV
-       echo "DIY_P1_SH: ${{ env.DEVICE }}/diy-part1.sh" >> $GITHUB_ENV
-       echo "DIY_P2_SH: ${{ env.DEVICE }}/diy-part2.sh" >> $GITHUB_ENV
-       echo "DIY_P3_SH: ${{ env.DEVICE }}/diy-part3.sh" >> $GITHUB_ENV
-       echo "CONFIG_FILE: ${{ env.DEVICE }}/.config" >> $GITHUB_ENV
-       echo "PRESET_CLASH_CORE_SH: ${{ env.DEVICE }}/perest-clash-core.sh" >> $GITHUB_ENV  
+       echo "DEVICE=${{inputs.DEVICE}}" >> $GITHUB_ENV
+       echo "DIY_P1_SH:$DEVICE/diy-part1.sh" >> $GITHUB_ENV
+       echo "DIY_P2_SH:$DEVICE/diy-part2.sh" >> $GITHUB_ENV
+       echo "DIY_P3_SH:$DEVICE/diy-part3.sh" >> $GITHUB_ENV
+       echo "CONFIG_FILE:$DEVICE/.config" >> $GITHUB_ENV
+       echo "PRESET_CLASH_CORE_SH:DEVICE/perest-clash-core.sh" >> $GITHUB_ENV  
        
         
     - name: Clone source code
