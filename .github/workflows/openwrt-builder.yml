@@ -129,8 +129,17 @@ jobs:
     - name: Preset mihomo core   
       if: ${{inputs.MIHOMO }}
       run: |
-        chmod +x  $GITHUB_WORKSPACE/$PRESET_CLASH_CORE_SH
-        $GITHUB_WORKSPACE/$PRESET_CLASH_CORE_SH
+        echo -e "预置Clash内核"
+        mkdir -p $GITHUB_WORKSPACE/openwrt/feeds/smpackage/luci-app-openclash/root/etc/openclash/core
+        core_path="$GITHUB_WORKSPACE/openwrt/feeds/smpackage/luci-app-openclash/root/etc/openclash/core"
+        goe_path="$GITHUB_WORKSPACE/openwrt/feeds/smpackage/luci-app-openclash/root/etc/openclash"
+
+        cd $GITHUB_WORKSPACE/clash-core
+        gunzip -c $MIHOMO  > $core_path/clash_meta
+        wget -qO- https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat > $goe_path/GeoIP.dat
+        wget -qO- https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat > $goe_path/GeoSite.dat
+        chmod +x $core_path/clash*
+
         
     - name: Download package
       id: package
