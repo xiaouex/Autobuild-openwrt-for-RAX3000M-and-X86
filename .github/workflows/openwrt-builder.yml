@@ -215,7 +215,7 @@ jobs:
     - name: Delete older releases android tags 
       uses: jay2610/delete-older-releases@1.0.0
       with:
-        repo: xiaouex/Autobuild-openwrt-for-RAX3000M-and-X86
+        repo: xiaouex/Autobuild-OpenWrt
         keep_latest: 5
         delete_tag_pattern:
         delete_type: 'release'
