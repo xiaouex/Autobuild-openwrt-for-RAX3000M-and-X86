@@ -129,7 +129,7 @@ jobs:
     - name: Preset mihomo core   
       if: ${{inputs.MIHOMO }}
       run: |
-        chmod +x $PRESET_CLASH_CORE_SH
+        chmod +x  $GITHUB_WORKSPACE/$PRESET_CLASH_CORE_SH
         $GITHUB_WORKSPACE/$PRESET_CLASH_CORE_SH
         
     - name: Download package
