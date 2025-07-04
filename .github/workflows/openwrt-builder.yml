@@ -98,23 +98,28 @@ jobs:
         chmod +x $DIY_P1_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
-
+      env:
+        MY_DEVICE=$${{inputs.DEVICE}}
+        
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
         
     - name: Install feeds
       run: |
-        chmod +x $DIY_P3_SH
+        chmod +x $DIY_P2_SH
         cd openwrt
-        $GITHUB_WORKSPACE/$DIY_P3_SH
+        $GITHUB_WORKSPACE/$DIY_P2_SH
 
     - name: Load custom configuration
       run: |
         [ -e files ] && mv files openwrt/files
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
-        chmod +x $DIY_P2_SH
+        chmod +x $DIY_P3_SH
         cd openwrt
-        $GITHUB_WORKSPACE/$DIY_P2_SH
+        $GITHUB_WORKSPACE/$DIY_P3_SH
+      env:
+        MY_DEVICE=$${{inputs.DEVICE}}
+        
         
     - name: Get mihomo alpha core
       if: ${{inputs.MIHOMO }}
