@@ -99,7 +99,7 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
       env:
-        MY_DEVICE=$${{inputs.DEVICE}}
+        MY_DEVICE: ${{inputs.DEVICE}}
         
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
@@ -118,7 +118,7 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P3_SH
       env:
-        MY_DEVICE=$${{inputs.DEVICE}}
+        MY_DEVICE: ${{inputs.DEVICE}}
         
         
     - name: Get mihomo alpha core
