@@ -68,10 +68,10 @@ jobs:
 
     - name: Set ENV
       run: |
-       echo "DIY_P1_SH=${{inputs.DEVICE}}/diy-part1.sh" >> $GITHUB_ENV
-       echo "DIY_P2_SH=${{inputs.DEVICE}}/diy-part2.sh" >> $GITHUB_ENV
-       echo "DIY_P3_SH=${{inputs.DEVICE}}/diy-part3.sh" >> $GITHUB_ENV
-       echo "CONFIG_FILE=${{inputs.DEVICE}}/.config" >> $GITHUB_ENV 
+       echo "DIY_P1_SH=config/diy-part1.sh" >> $GITHUB_ENV
+       echo "DIY_P2_SH=config/diy-part2.sh" >> $GITHUB_ENV
+       echo "DIY_P3_SH=config/diy-part3.sh" >> $GITHUB_ENV
+       echo "CONFIG_FILE=config/${{inputs.DEVICE}}/.config" >> $GITHUB_ENV 
        if [[ "${{inputs.DEVICE}}" == "rax3000m" ]];then
          echo "MIHOMO=mihomo-linux-arm64-alpha-*.gz" >> $GITHUB_ENV
        elif [[ "${{inputs.DEVICE}}" == "x86"  ]];then
